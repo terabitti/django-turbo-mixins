@@ -1,0 +1,21 @@
+{% load i18n %}
+
+{% if include_turbo_stream %}
+<turbo-stream action="replace" target="item-{{ item.id }}">
+  <template>
+{% endif %}
+
+<turbo-frame id="item-{{ item.id }}">
+  <p>
+    {{ item }} {{ item.price|floatformat:2 }}
+    <span>
+      <a href="{% url 'item-edit' item.category.id item.id %}">{% translate "Edit" %}</a>
+      <a href="{% url 'item-delete' item.category.id item.id %}">{% translate "Delete" %}</a>
+    </span>
+  </p>
+</turbo-frame>
+
+{% if include_turbo_stream %}
+  </template>
+</turbo-stream>
+{% endif %}

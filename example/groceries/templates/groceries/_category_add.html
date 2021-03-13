@@ -1,0 +1,36 @@
+{% load i18n groceries_tags %}
+
+{% if include_turbo_stream %}
+<turbo-stream action="replace" target="category-add">
+  <template>
+{% endif %}
+
+<turbo-frame id="category-add">
+  {% is_category_limit_exceeded as limit_exceeded %}
+  {% if limit_exceeded %}
+    {% max_categories as max_categories %}
+    <p class="info">
+      {% blocktranslate %}Cannot add more than {{ max_categories }} categories.{% endblocktranslate %}
+    </p>
+  {% else %}
+    <h2>{% translate "Add category" %}</h2>
+
+    <form method="post" action="{% url 'category-add' %}">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+      {% for field in form %}
+        {{ field.errors }}
+        {{ field }}
+        {% if field.help_text %}
+          <p class="help">{{ field.help_text|safe }}</p>
+        {% endif %}
+      {% endfor %}
+      <button>{% translate "Add" %}</button>
+    </form>
+  {% endif %}
+</turbo-frame>
+
+{% if include_turbo_stream %}
+  </template>
+</turbo-stream>
+{% endif %}

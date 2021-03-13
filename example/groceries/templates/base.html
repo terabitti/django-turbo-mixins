@@ -1,0 +1,25 @@
+{% load i18n static %}
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{% translate "Groceries" %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://unpkg.com/mvp.css">
+    <link rel="stylesheet" href="{% static 'css/site.css' %}">
+    <script type="module">
+      import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
+    </script>
+  </head>
+  <body class="{% block body_class %}{% endblock %}">
+    {% block menu %}{% endblock %}
+    {% block messages %}
+      <ul id="messages">
+        {% for message in message %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endblock %}
+    {% block content %}{% endblock %}
+  </body>
+</html>

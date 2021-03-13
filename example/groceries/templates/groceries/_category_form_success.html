@@ -1,0 +1,14 @@
+{% comment %} This template is not used because the view has `success_template_name = None` {% endcomment %}
+{% load i18n %}
+
+<turbo-stream action="replace" target="category-{{ category.id }}">
+  <template>
+    {% include "groceries/_category_detail.html" with include_turbo_stream=False %}
+  </template>
+</turbo-stream>
+
+<turbo-stream action="append" target="messages">
+  <template>
+    <li class="info">{% translate "Updated" %} "{{ category }}"</li>
+  </template>
+</turbo-stream>

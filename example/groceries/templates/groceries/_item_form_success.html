@@ -1,0 +1,13 @@
+{% load i18n %}
+
+<turbo-stream action="replace" target="item-{{ item.id }}">
+  <template>
+    {% include "groceries/_item_detail.html" with include_turbo_stream=False %}
+  </template>
+</turbo-stream>
+
+<turbo-stream action="update" target="messages">
+  <template>
+    <li class="info">{% translate "Updated" %} "{{ item }}"</li>
+  </template>
+</turbo-stream>

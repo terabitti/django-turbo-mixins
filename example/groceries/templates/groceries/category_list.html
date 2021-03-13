@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+  <header>
+    <h1>{% translate "Groceries" %}</h1>
+  </header>
+
+  <main>
+    <div id="category-list">
+      {% for category in category_list %}
+        {% include "groceries/_category_detail.html" %}
+      {% endfor %}
+    </div>
+
+    {% include "groceries/_category_add.html" with form=category_add_form %}
+  </main>
+{% endblock %}

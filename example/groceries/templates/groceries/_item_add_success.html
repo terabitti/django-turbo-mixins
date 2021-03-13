@@ -1,0 +1,19 @@
+{% load i18n %}
+
+<turbo-stream action="append" target="category-{{ item.category.id }}-item-list">
+  <template>
+    {% include "groceries/_item_detail.html" with include_turbo_stream=False %}
+  </template>
+</turbo-stream>
+
+<turbo-stream action="replace" target="category-{{ item.category.id }}-item-add">
+  <template>
+    {% include "groceries/_item_add.html" with form=item.category.get_item_add_form include_turbo_stream=False %}
+  </template>
+</turbo-stream>
+
+<turbo-stream action="update" target="messages">
+  <template>
+    <li class="info">{% translate "Created" %} "{{ item }}"</li>
+  </template>
+</turbo-stream>

@@ -1,0 +1,28 @@
+{% load i18n %}
+
+{% if include_turbo_stream %}
+<turbo-stream action="replace" target="category-{{ category.id }}">
+  <template>
+{% endif %}
+
+<turbo-frame id="category-{{ category.id }}" class="category">
+  <h2>{% translate "Edit category" %}</h2>
+
+  <form method="post" action="{% url 'category-edit' category.id %}">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% for field in form %}
+      {{ field.errors }}
+      {{ field }}
+      {% if field.help_text %}
+        <p class="help">{{ field.help_text|safe }}</p>
+      {% endif %}
+    {% endfor %}
+    <button>{% translate "Save" %}</button>
+  </form>
+</turbo-frame>
+
+{% if include_turbo_stream %}
+  </template>
+</turbo-stream>
+{% endif %}

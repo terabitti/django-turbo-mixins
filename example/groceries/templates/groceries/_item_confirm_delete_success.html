@@ -1,0 +1,20 @@
+{% load i18n %}
+
+<turbo-stream action="remove" target="item-{{ object_id }}">
+  <template></template>
+</turbo-stream>
+
+{% comment %} Re-enable item add form if item count fall below limit. {% endcomment %}
+{% if new_item_add_form %}
+  <turbo-stream action="replace" target="category-{{ category.id }}-item-add">
+    <template>
+      {% include "groceries/_item_add.html" with form=new_item_add_form include_turbo_stream=False %}
+    </template>
+  </turbo-stream>
+{% endif %}
+
+<turbo-stream action="update" target="messages">
+  <template>
+    <li class="info">{% translate "Deleted" %} "{{ item }}"</li>
+  </template>
+</turbo-stream>

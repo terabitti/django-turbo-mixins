@@ -1,0 +1,21 @@
+{% load i18n %}
+
+{% if include_turbo_stream %}
+<turbo-stream action="replace" target="item-{{ item.id }}">
+  <template>
+{% endif %}
+
+<turbo-frame id="item-{{ item.id }}">
+  <form method="post" action="{% url 'item-delete' item.category.id item.id %}">
+    {% csrf_token %}
+    {{ form.as_ul }}
+    <h3>{% blocktranslate %}Do you want to delete "{{ item }}"?{% endblocktranslate %}</h3>
+    <a href="{% url 'item' item.category.id item.id %}"><strong>{% translate "Cancel" %}</strong></a>
+    <button>{% translate "Delete" %}</button>
+  </form>
+</turbo-frame>
+
+{% if include_turbo_stream %}
+  </template>
+</turbo-stream>
+{% endif %}

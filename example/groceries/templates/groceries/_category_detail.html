@@ -1,0 +1,29 @@
+{% load i18n %}
+
+{% if include_turbo_stream %}
+<turbo-stream action="replace" target="category-{{ category.id }}">
+  <template>
+{% endif %}
+
+<turbo-frame id="category-{{ category.id }}" class="category">
+  <turbo-frame id="category-{{ category.id }}-item-list">
+    <h2>
+      {{ category }}
+      <span>
+        <a href="{% url 'category-edit' category.id %}" data-turbo-frame="category-{{ category.id }}">{% translate "Edit" %}</a>
+        <a href="{% url 'category-delete' category.id %}" data-turbo-frame="category-{{ category.id }}">{% translate "Delete" %}</a>
+      </span>
+    </h2>
+
+    {% for item in category.item_set.all %}
+      {% include "groceries/_item_detail.html" with include_turbo_stream=False %}
+    {% endfor %}
+  </turbo-frame>
+
+  {% include "groceries/_item_add.html" with form=category.get_item_add_form include_turbo_stream=False %}
+</turbo-frame>
+
+{% if include_turbo_stream %}
+  </template>
+</turbo-stream>
+{% endif %}
