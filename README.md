@@ -5,7 +5,7 @@ integrate [Turbo](https://turbo.hotwire.dev/) request handling to
 Django Class-Based Views using mixins and additional templates.
 
 There's no PyPI package because this should be simple enough to
-simply copy the file into project.
+just copy the file into project.
 
 
 ## What does it do?
@@ -100,12 +100,12 @@ class MyItemDeleteView(TurboDeleteViewMixin, DeleteView):
     success_url = reverse_lazy("index")
 ```
 
-### `myapp/myitem_form.html`
+#### `myapp/myitem_form.html`
 
 This is a typical Django template used for non-Turbo requests.
 Into this template we include the partial template.
 
-```
+```html
 {% extends "base.html" %}
 
 {% block content %}
@@ -113,7 +113,7 @@ Into this template we include the partial template.
 {% endblock %}
 ```
 
-### `myapp/_myitem_form.html`
+#### `myapp/_myitem_form.html`
 
 This is the partial template used for Turbo requests.
 
@@ -125,7 +125,7 @@ This is the partial template used for Turbo requests.
 > into non-Turbo requests or inside other `turbo-stream` elements.
 > See how this is used in other templates.
 
-```
+```html
 {% if include_turbo_stream %}
 <turbo-stream action="replace" target="myitem-{{ myitem.id }}">
   <template>
@@ -145,9 +145,9 @@ This is the partial template used for Turbo requests.
 {% endif %}
 ```
 
-### `myapp/_myitem_form_success.html`
+#### `myapp/_myitem_form_success.html`
 
-```
+```html
 <!-- Replace element #myitem-<id> -->
 <turbo-stream action="replace" target="myitem-{{ myitem.id }}">
   <template>
@@ -163,9 +163,9 @@ This is the partial template used for Turbo requests.
 </turbo-stream>
 ```
 
-### `myapp/_myitem_detail.html`
+#### `myapp/_myitem_detail.html`
 
-```
+```html
 {% if include_turbo_stream %}
 <turbo-stream action="replace" target="myitem-{{ myitem.id }}">
   <template>
